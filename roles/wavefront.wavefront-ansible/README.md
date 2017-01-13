@@ -43,6 +43,9 @@ The following tags are supported, can be given comma separated (for ex: --tags "
 
 How To Install
 ----------------
+Download from: https://github.com/asangal/ansible_wavefront_proxy_telegraf/archive/master.zip
+
+Coming soon:
 Using ansible galaxy, best for ad-hoc command situations:
 
     $ ansible-galaxy install wavefront.wavefront-ansible
@@ -52,23 +55,6 @@ To install into your playbook roles, use `-p ROLES_PATH` or `--path=ROLES_PATH`
     $ ansible-galaxy install wavefront.wavefront-ansible -p /your/project/root/roles
 
 Check out: [Advanced Control over Role Requirements Files](http://docs.ansible.com/galaxy.html#advanced-control-over-role-requirements-files)
-
-Setup Steps (Post Install)
---------------------------
-1) Create wavefront-ansible.yml file (like shown below) at one level up than "roles" folder.
-```
----
-- hosts: all
-  become: true
-  gather_facts: true
-  serial: "{{ serialNumber }}"
-
-  vars:
-    - serialNumber: 1
-
-  roles:
-    - wavefront.wavefront-ansible
-```
 
 Examples
 ----------------
