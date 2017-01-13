@@ -1,0 +1,76 @@
+---
+- name: Install Wavefront Proxy (RedHat)
+  yum:
+    name: "{{ wavefront_proxy_pkg }}"
+    state: "{{ wavefront_pkg_state }}"
+  when: ansible_os_family == "RedHat" and wavefront_install_proxy == "true"
+  register: result
+  until: result.rc == 0
+  tags:
+   - install
+   - redhat
+   - proxy
+
+- name: Install Wavefront Proxy (Ubuntu)
+  apt:
+    name: "{{ wavefront_proxy_pkg }}"
+    state: "{{ wavefront_pkg_state }}"
+  when: ansible_distribution == "Ubuntu" and wavefront_install_proxy == "true"
+  register: result
+  until: result|succeeded
+  tags:
+   - install
+   - debian
+   - proxy
+
+- name: Update Wavefront Proxy config file
+  template: 
+    src: wavefront-proxy.conf.j2
+    dest: "{{ wavefront_config }}"
+    mode: 0644
+    owner: root
+    group: root
+  when: wavefront_install_proxy == "true"
+  notify: restart wavefront-proxy
+  tags:
+   - install
+   - redhat
+   - debian
+   - proxy
+   - configure
+
+- name: Remove wavefront.conf.default file
+  file: path="{{ wavefront_config }}.default" state=absent 
+  notify: restart wavefront-proxy
+  tags:
+   - install
+   - redhat
+   - debian
+   - proxy
+   - configure
+
+- name: Ensure ~/.wavefront folder exists
+  file: 
+    path: "{{ lookup('env','HOME') }}/.wavefront" 
+    state: directory
+    mode: 0700
+    owner: "{{ lookup('env','USER') }}"
+  when: wavefront_create_cred_file == "true"
+  tags:
+   - install
+   - redhat
+   - debian
+   - proxy
+
+- name: Create ~/.wavefront/credentials file
+  template: 
+    src: proxy_auth_credentials.set.j2
+    dest: "{{ wavefront_cred_file }}"
+    mode: 0600
+    owner: "{{ lookup('env','USER') }}"
+  when: wavefront_create_cred_file == "true" and wavefront_url != "" and wavefront_api_token != ""
+  tags:
+   - install
+   - redhat
+   - debian
+   - proxy

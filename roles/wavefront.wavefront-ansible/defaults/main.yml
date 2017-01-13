@@ -1,0 +1,56 @@
+---
+# defaults file for wavefront
+instance: "mon"
+wavefront_url: "https://{{ instance }}.wavefront.com"
+wavefront_api_url: "{{ wavefront_url }}/api"
+wavefront_api_token: 'DUMMY_WF_URL_API_TOKEN'
+wavefront_cred_file: "{{ lookup('env','HOME') }}/.wavefront/credentials"
+wavefront_create_cred_file: false
+
+wavefront_proxy_pkg_url: 'https://packagecloud.io/wavefront/proxy'
+wavefront_telegraf_pkg_url: 'https://packagecloud.io/wavefront/telegraf'
+wavefront_pkg_state: 'installed'
+
+# to set a version of the agent use wavefront-proxy=X.Y.Z
+wavefront_proxy_pkg:  'wavefront-proxy'
+wavefront_config_dir: '/etc/wavefront/{{ wavefront_proxy_pkg }}'
+wavefront_config: "{{ wavefront_config_dir }}/wavefront.conf"
+wavefront_agent_extra_args:
+wavefront_agent_config_args:
+wavefront_collector: 'telegraf'
+wavefront_install_proxy: false
+wavefront_install_collector: false
+
+wavefront_repo_base_url: "https://packagecloud.io/install/repositories/wavefront/{{ item.tool }}"
+wavefront_repo_install_url: "{{ wavefront_repo_base_url }}/config_file.repo?os={{ item.release }}&dist={{ item.version }}&source=script"
+
+#Other pip package related attributes
+wavefront_pip_pkg: wavefront-cli
+wavefront_cmd: wave
+
+#telegraf variables
+#telegraf_config_wfcopy: "https://raw.githubusercontent.com/wavefrontHQ/integrations/master/telegraf/telegraf.conf"
+telegraf_config_dir: "/etc/telegraf"
+telegraf_main_config: "{{ telegraf_config_dir }}/telegraf.conf"
+telegraf_additional_config_dir: "{{ telegraf_config_dir }}/telegraf.d"
+telegraf_wavefront_output_plugin_config: "{{ telegraf_additional_config_dir }}/10-wavefront.conf"
+telegraf_custom_plugins_conf_file: "{{ telegraf_additional_config_dir }}/telegraf-custom-host-services-processes.conf"
+telegraf_port: 2878
+#telegraf_tags: "env=dev,app=myapp"
+proxy_address: "ip-10-200-100-28.us-west-2.compute.internal"
+proxy_port: "{{ telegraf_port }}"
+
+#statsd variables
+statsd_port: 8125
+statsd_wavefront_config: "{{ telegraf_additional_config_dir }}/10-statsd.conf"
+
+
+#opentsdb variables
+opentsdb_port: 4242
+
+## aws telegraf variables
+aws_region: us-west-2
+aws_secret_key_id: AWS_DUMMY_SECRET_KEY_ID
+aws_secret_key: AWS_DUMMY_SECRET_KEY
+
+
