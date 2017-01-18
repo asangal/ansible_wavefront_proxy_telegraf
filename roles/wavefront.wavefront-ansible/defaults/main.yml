@@ -1,7 +1,8 @@
 ---
 # defaults file for wavefront
-instance: "mon"
-wavefront_url: "https://{{ instance }}.wavefront.com"
+wavefront_instance: "try"
+#wavefront_instance: "mon"
+wavefront_url: "https://{{ wavefront_instance }}.wavefront.com"
 wavefront_api_url: "{{ wavefront_url }}/api"
 wavefront_api_token: 'DUMMY_WF_URL_API_TOKEN'
 wavefront_cred_file: "{{ lookup('env','HOME') }}/.wavefront/credentials"

@@ -1,27 +1,28 @@
 ---
-- name: Install Wavefront Proxy (RedHat)
-  yum:
-    name: "{{ wavefront_proxy_pkg }}"
-    state: "{{ wavefront_pkg_state }}"
-  when: ansible_os_family == "RedHat" and wavefront_install_proxy == "true"
-  register: result
-  until: result.rc == 0
+- name: Fail_Fast if Wavefront URL/Token authentication fails
+  uri:
+    url: "{{ wavefront_api_url }}/daemon/test?token={{ wavefront_api_token }}"
+    method: POST
+    force_basic_auth: yes
+    return_content: yes
+    follow_redirects: all
+    status_code: 200
+  when: wavefront_install_proxy == "true" or wavefront_create_cred_file == "true"
   tags:
    - install
+   - check
+   - failfast
+   - proxy
    - redhat
-   - proxy
-
-- name: Install Wavefront Proxy (Ubuntu)
-  apt:
-    name: "{{ wavefront_proxy_pkg }}"
-    state: "{{ wavefront_pkg_state }}"
-  when: ansible_distribution == "Ubuntu" and wavefront_install_proxy == "true"
-  register: result
-  until: result|succeeded
-  tags:
-   - install
    - debian
-   - proxy
+   - configure
+
+- include: "{{ ansible_os_family }}.yml"
+  tags:
+    - install
+    - debian
+    - redhat
+    - proxy
 
 - name: Update Wavefront Proxy config file
   template: 

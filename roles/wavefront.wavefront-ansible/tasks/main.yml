@@ -10,86 +10,34 @@
    - check
    - failfast
 
-- name: Fail_Fast if Wavefront URL/Token authentication fails
-  uri:
-    url: "{{ wavefront_api_url }}/daemon/test?token={{ wavefront_api_token }}"
-    method: POST
-    force_basic_auth: yes
-    return_content: yes
-    follow_redirects: all
-    status_code: 200
-  when: wavefront_install_proxy == "true" or wavefront_create_cred_file == "true"
-  tags:
-   - install
-   - check
-   - failfast
-   - proxy
-   - redhat
-   - debian
-   - configure
-
-- debug: msg="Proxy {{ item.name }} = {{ item.value }}"
-  with_items:
-    - { name: "address host", value: "{{ proxy_address }}" }
-    - { name: "port", value: "{{ proxy_port }}" }
-  when: wavefront_install_collector == "true" and wavefront_collector == "telegraf"
-  tags:
-   - install
-   - check
-   - failfast
-   - collector
-   - redhat
-   - debian
-   - configure
-
-- name: Fail_Fast if collector agent's proxy port is not open
-  shell: "telnet {{ proxy_address }} {{ proxy_port }}"
-  register: telnet_result
-  failed_when: "'Connection refused' in telnet_result.stderr"
-  when: wavefront_install_collector == "true" and wavefront_collector == "telegraf"
-  tags:
-   - install
-   - check
-   - failfast
-   - collector
-   - redhat
-   - debian
-   - configure
-
-- name: Run Apt configure 
-  include: apt_install.yml
-  when: ansible_os_family == "Debian" and ansible_distribution == "Ubuntu"
+- name: Install WaveFront Repositories
+  include: "packages/{{ ansible_os_family }}.yml"
   tags:
    - prereqs
    - install
    - debian
-
-- name: Run Yum Configure 
-  include: yum_install.yml
-  when: ansible_os_family == "RedHat"
-  tags:
-   - prereqs
-   - install
    - redhat
 
 - name: Install Wavefront Proxy
-  include: install_proxy.yml
+  include: proxy/configure.yml
   when: wavefront_install_proxy == "true"
   tags:
    - install
    - proxy
+   - debian
+   - redhat
 
 - name: Install collector (telegraf)
-  include: install_telegraf.yml
+  include: telegraf/configure.yml
   when: wavefront_install_collector == "true" and wavefront_collector == "telegraf" 
   tags:
    - install
    - collector
 
-##PS: free-form YAML syntax for the following ansible pip
-##    module won't work.
 - name: Install wave cli (as well)
-  pip: name="{{ wavefront_pip_pkg }}" umask="0022"
+  pip:
+    name: "{{ wavefront_pip_pkg }}"
+    umask: "0022"
   tags:
    - install
    - proxy
