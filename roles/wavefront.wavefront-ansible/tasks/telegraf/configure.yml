@@ -73,16 +73,18 @@
    - collector
    - configure
 
-- name: Create Telegraf input plugins 
+- name: Create telegraf_inputs variable based plugin file
   template:
     src: inputs.conf.j2
     dest: "{{ telegraf_additional_config_dir }}/{{ item }}.conf"
     mode: 0644
   notify: restart telegraf
-  with_items: '{{ telegraph_inputs.keys() }}'
+  with_items: "{{ telegraf_inputs | default('undefined')  }}"
+  when: telegraf_inputs is defined and telegraf_inputs is iterable
   tags:
    - install
    - redhat
    - debian
    - collector
    - configure
+

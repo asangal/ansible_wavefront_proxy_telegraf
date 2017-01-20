@@ -5,35 +5,52 @@
 ## Examples: Uncomment/edit to enable/set for what you are looking for.
 ##
 ## Telegraf filestat plugin
+[[inputs.filestat]]
+  files = ["/var/run/*/*.pid","/var/run/*.pid"]
+
+#Add more if you want.
 #[[inputs.filestat]]
-#  files = ["/proc/enhanceio","/var/run/jenkins/jenkins.pid"]
+#  files = ["/some/path*/some/filename.extension","/some/path/file-*"]
+
+
 
 ## For catching all the services by pattern. The following will catch all.
 ## Telegraf will use: pgrep <executable>
-#[[inputs.procstat]]
-#  exe = "."
-#  prefix = "pgrep_serviceprocess"
+[[inputs.procstat]]
+  exe = "."
+  prefix = "pgrep_serviceprocess"
+
+
 
 ## For catching all processes by a pattern. The following will catch all.
 ## Telegraf will use: pgrep -f <pattern>
-#[[inputs.procstat]]
-#  pattern = "."
-#  prefix = "pgrep_serviceprocess"
+[[inputs.procstat]]
+  pattern = "."
+  prefix = "pgrep_serviceprocess"
 
+
+
+##OR one can also define multiple users like this: 
+##If same user is defined twice in this file, it'll not error.
+#[[inputs.procstat]]
+#  user = "root,vagrant,bamboo,jenkins"
+#  prefix = "pgrep_serviceprocess"
 
 ##For catching processes by a user.
 ## Telegraf will use: pgrep -u <user>
-#[[inputs.procstat]]
-#  user = "vagrant"
-#  prefix = "pgrep_serviceprocess"
+[[inputs.procstat]]
+  user = "{{ lookup('env','USER') }}"
+  prefix = "pgrep_serviceprocess"
 
-#[[inputs.procstat]]
-#  user = "telegraf"
-#  prefix = "pgrep_serviceprocess"
+[[inputs.procstat]]
+  user = "telegraf"
+  prefix = "pgrep_serviceprocess"
 
-#[[inputs.procstat]]
-#  user = "root"
-#  prefix = "pgrep_serviceprocess"
+[[inputs.procstat]]
+  user = "root"
+  prefix = "pgrep_serviceprocess"
+
+
 
 
 ## For catching individual processes/services

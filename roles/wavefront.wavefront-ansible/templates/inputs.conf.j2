@@ -1,9 +1,11 @@
+{% if telegraf_inputs is defined %}
+{% for item in telegraf_inputs.keys() %}
 [[{{ item }}]]
-{% for key in telegraph_inputs[item].keys() %}
+{% for key in telegraf_inputs[item].keys() %}
 {% if key != 'nested_inputs' %}
-  {{ key }} = {{ telegraph_inputs[item][key] }}
+  {{ key }} = {{ telegraf_inputs[item][key] }}
 {% elif key == 'nested_inputs' %}
-{% for nested in telegraph_inputs[item]['nested_inputs'] %}
+{% for nested in telegraf_inputs[item]['nested_inputs'] %}
 {% for nested_key, nested_val in nested.items() %}
 {% if nested_key == 'nested_input_name' %}
   [{{ nested_val }}]
@@ -14,3 +16,5 @@
 {% endfor %}
 {% endif %}
 {% endfor %}
+{% endfor %}
+{% endif %}
