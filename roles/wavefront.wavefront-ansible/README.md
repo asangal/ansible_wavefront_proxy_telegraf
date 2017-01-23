@@ -106,18 +106,24 @@ aws_secret_access_key = DummyGG62CCc62+iihhgga6+45Km+tG9+T9WL5Wc
 MISC Info
 ---------
 Once Wavefront Proxy agent (wavefront-proxy) is installed/configured successfully.
+
 1) You can see its configuration files at: /etc/wavefront/wavefront-proxy/*
+
 2) You can find the log files at: /var/log/wavefront/wavefront-proxy/*
+
 
 Once Collector(Telegraf) agent is installed/configured successfully.
 1) You can see its configuration files at: /etc/telegraf/* or /etc/telegraf/telegraf.d/*
+
 2) You can fine the log files at: /var/log/telegraf/*
+
 3) telegraf_tags variable can be passed at cmd line (or set in <role>/defaults/main.yml) 
    This variable if enabled, will add tags under `[global_tags]` section in telegraf.conf file.
 
 4) telegraf_inputs variable can be passed at cmd line (or set in <role>/defaults/main.yml) 
    This variable if enabled, will create respective inputs.<key>.conf files in telegraf.d folder
    for any user defined inputs plugins.
+
 
 Optional
 3) You can create a new Dashboard (for Telegraf) on your WaveFront instance URL using:
