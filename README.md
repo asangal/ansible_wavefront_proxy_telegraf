@@ -7,6 +7,8 @@ Steps:
 
 2. To install Wavefront Proxy and Collector(Telegraf) agents, run the following or similar:
 
+3. For detailed info about role/playbook and its variables, look inside role 'wavefront.wavefront-ansible' and it's README.md file
+
 Examples:
 ---------
 
@@ -19,5 +21,3 @@ To install Wavefront preferred Collector (Telegraf) agent
 ```
 ansible-playbook wavefront-ansible.yml -i "`hostname`," --connection=local --extra-vars "wavefront_install_collector=true proxy_address=my-valid-wavefront-proxy-server-host.com proxy_port=2878"
 ```
-
-3. For detailed info about role/playbook and its variables, look inside role 'wavefront.wavefront-ansible' and it's README.md file
