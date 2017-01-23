@@ -2,7 +2,9 @@
 ==================================
 
 Steps:
+-----
 1. Download/Clone this repository
+
 2. To install Wavefront Proxy and Collector(Telegraf) agents, run the following or similar:
 
 Examples:
