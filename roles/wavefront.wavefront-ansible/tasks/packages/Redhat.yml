@@ -5,6 +5,12 @@
   with_items:
    - { version: "6", ec2_dist_version: "2016.03" }
    - { version: "6", ec2_dist_version: "2016.09" }
+  tags:
+   - prereqs
+   - install
+   - redhat
+   - proxy
+   - collector
 
 # Save 4 yum_repository calls with 1 uri call.
 - name: Set yum repos.d files proxy and agent
