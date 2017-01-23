@@ -105,14 +105,18 @@ aws_secret_access_key = DummyGG62CCc62+iihhgga6+45Km+tG9+T9WL5Wc
 
 MISC Info
 ---------
+
 Once Wavefront Proxy agent (wavefront-proxy) is installed/configured successfully.
+--------------------------------------------
 
 1) You can see its configuration files at: /etc/wavefront/wavefront-proxy/*
 
 2) You can find the log files at: /var/log/wavefront/wavefront-proxy/*
 
 
-Once Collector(Telegraf) agent is installed/configured successfully.
+Once Collector(telegraf) agent is installed/configured successfully.
+------------------------------
+
 1) You can see its configuration files at: /etc/telegraf/* or /etc/telegraf/telegraf.d/*
 
 2) You can fine the log files at: /var/log/telegraf/*
@@ -126,7 +130,8 @@ Once Collector(Telegraf) agent is installed/configured successfully.
 
 
 Optional
-3) You can create a new Dashboard (for Telegraf) on your WaveFront instance URL using:
+--------
+1) You can create a new Dashboard (for Telegraf) on your WaveFront instance URL using:
    Telegarf Dashboard template JSON file available here: 
    https://raw.githubusercontent.com/wavefrontHQ/integrations/master/telegraf/dashboards/telegraf-host.json
 
