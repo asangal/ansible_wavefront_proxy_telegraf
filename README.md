@@ -8,6 +8,7 @@ Steps:
 2. To install Wavefront Proxy and Collector(Telegraf) agents, run the following or similar:
 
 3. For detailed info about role/playbook and its variables, look inside role 'wavefront.wavefront-ansible' and it's README.md file
+   https://github.com/asangal/ansible_wavefront_proxy_telegraf/blob/master/roles/wavefront.wavefront-ansible/README.md
 
 Examples:
 ---------
