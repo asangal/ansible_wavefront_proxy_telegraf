@@ -79,7 +79,7 @@
     dest: "{{ telegraf_additional_config_dir }}/{{ item }}.conf"
     mode: 0644
   notify: restart telegraf
-  with_items: "{{ telegraf_inputs | default('undefined')  }}"
+  with_items: "{{ telegraf_inputs.keys() | default('undefined')  }}"
   when: telegraf_inputs is defined and telegraf_inputs is iterable
   tags:
    - install
@@ -87,4 +87,17 @@
    - debian
    - collector
    - configure
+
+- name: Check if conf file exists
+  file: path="{{ telegraf_additional_config_dir }}/{{ item }}.conf"
+  register: file_{{ item }}.conf_exists
+  with_items: "{{ telegraf_inputs.keys() | default('undefined')  }}"
+  when: telegraf_inputs is defined and telegraf_inputs is iterable
+
+- name: Warn if conf file exists but if its setting were turned off.  
+  
+  with_items: "{{ telegraf_inputs.keys() | default('undefined')  }}"
+  when: telegraf_inputs is defined and telegraf_inputs is iterable
+  
+  
 

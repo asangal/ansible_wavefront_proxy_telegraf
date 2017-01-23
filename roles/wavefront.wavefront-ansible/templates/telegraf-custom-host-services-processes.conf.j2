@@ -14,19 +14,21 @@
 
 
 
-## For catching all the services by pattern. The following will catch all.
+## For catching all the services by executable. The following will catch all.
+## NOTE: Use only either exe or pattern. Using both will work but result in
+## duplicate metrics one referred by exe and other referred by pattern.
+## exe vs pattern: exe has one extra metric for: number of threads.
 ## Telegraf will use: pgrep <executable>
 [[inputs.procstat]]
   exe = "."
   prefix = "pgrep_serviceprocess"
 
-
-
+## Commenting out pattern stanza below as the above 'exe' stanza is enabled.
 ## For catching all processes by a pattern. The following will catch all.
 ## Telegraf will use: pgrep -f <pattern>
-[[inputs.procstat]]
-  pattern = "."
-  prefix = "pgrep_serviceprocess"
+#[[inputs.procstat]]
+#  pattern = "."
+#  prefix = "pgrep_serviceprocess"
 
 
 
@@ -51,46 +53,6 @@
   prefix = "pgrep_serviceprocess"
 
 
-
-
-## For catching individual processes/services
-#[[inputs.procstat]]
-#  exe = "telegraf"
-#  prefix = "pgrep_serviceprocess"
-#
-#[[inputs.procstat]]
-#  exe = "sshd"
-#  prefix = "pgrep_serviceprocess"
-#
-#[[inputs.procstat]]
-#  exe = "jenkins"
-#  prefix = "pgrep_serviceprocess"
-#
-#[[inputs.procstat]]
-#  exe = "collectd"
-#  prefix = "pgrep_serviceprocess"
-#
-#[[inputs.procstat]]
-#  exe = "collectdmon"
-#  prefix = "pgrep_serviceprocess"
-#
-#[[inputs.procstat]]
-#  exe = "fdbmonitor"
-#  prefix = "pgrep_serviceprocess"
-#
-#[[inputs.procstat]]
-#  exe = "fdbserver"
-#  prefix = "pgrep_serviceprocess"
-#
-#[[inputs.procstat]]
-#  exe = "backup_agent"
-#  prefix = "pgrep_serviceprocess"
-#
-#[[inputs.procstat]]
-#  exe = "dockerd"
-#  prefix = "pgrep_serviceprocess"
-#
-#[[inputs.procstat]]
-#  exe = "nginx"
-#  prefix = "pgrep_serviceprocess"
-#
+##Also look into [[inputs.exec]] input plugin for your specific requirements.
+##Refer: https://github.com/influxdata/telegraf/tree/master/plugins
+##     : https://github.com/influxdata/telegraf/tree/master/plugins/inputs/exec

@@ -36,6 +36,8 @@
    - debian
    - redhat
 
+- debug: msg='For adding/tweaking Telegraf Plugins, please visit https://github.com/influxdata/telegraf/tree/master/plugins'
+
 - name: Install wave cli (as well)
   pip:
     name: "{{ wavefront_pip_pkg }}"

@@ -1,5 +1,4 @@
 {% if telegraf_inputs is defined %}
-{% for item in telegraf_inputs.keys() %}
 [[{{ item }}]]
 {% for key in telegraf_inputs[item].keys() %}
 {% if key != 'nested_inputs' %}
@@ -15,6 +14,5 @@
 {% endfor %}
 {% endfor %}
 {% endif %}
-{% endfor %}
 {% endfor %}
 {% endif %}
