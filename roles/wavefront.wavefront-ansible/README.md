@@ -23,8 +23,8 @@ wavefront_install_collector=true (default: false)                # Optional.
 proxy_address=valid.proxy.hostname (default: a WaveFront Proxy)  # Required, if collector(true)
 proxy_port=2878_is_a_valid_port (default: 2878)                  # Required, if collector(true)
 wavefront_create_cred_file=true (default: false)                 # Optional.
-telegraf_tags							 # Optional. Check <roles>/defaults/main.yml for more info.
-telegraf_inputs							 # Optional. Check <roles>/defaults/main.yml for more info.
+telegraf_tags                                                    # Optional. Check <roles>/defaults/main.yml for more info.
+telegraf_inputs                                                  # Optional. Check <roles>/defaults/main.yml for more info.
 ```
 
 Role Tags
@@ -112,6 +112,12 @@ Once Wavefront Proxy agent (wavefront-proxy) is installed/configured successfull
 Once Collector(Telegraf) agent is installed/configured successfully.
 1) You can see its configuration files at: /etc/telegraf/* or /etc/telegraf/telegraf.d/*
 2) You can fine the log files at: /var/log/telegraf/*
+3) telegraf_tags variable can be passed at cmd line (or set in <role>/defaults/main.yml) 
+   This variable if enabled, will add tags under `[global_tags]` section in telegraf.conf file.
+
+4) telegraf_inputs variable can be passed at cmd line (or set in <role>/defaults/main.yml) 
+   This variable if enabled, will create respective inputs.<key>.conf files in telegraf.d folder
+   for any user defined inputs plugins.
 
 Optional
 3) You can create a new Dashboard (for Telegraf) on your WaveFront instance URL using:
