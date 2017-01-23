@@ -108,3 +108,11 @@
    - debian
    - collector
    - configure
+
+- debug: msg='For adding/tweaking Telegraf Plugins, please visit https://github.com/influxdata/telegraf/tree/master/plugins'
+  tags:
+   - install
+   - redhat
+   - debian
+   - collector
+   - configure
