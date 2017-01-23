@@ -81,6 +81,7 @@
   notify: restart telegraf
   with_items: "{{ telegraf_inputs.keys() | default('undefined')  }}"
   when: telegraf_inputs is defined and telegraf_inputs is iterable
+  ignore_errors: yes
   tags:
    - install
    - redhat
