@@ -1,7 +1,7 @@
 ---
 # defaults file for wavefront
-#wavefront_instance: "try"
-wavefront_instance: "mon"
+wavefront_instance: "try"
+#wavefront_instance: "mon"
 wavefront_url: "https://{{ wavefront_instance }}.wavefront.com"
 wavefront_api_url: "{{ wavefront_url }}/api"
 wavefront_api_token: 'DUMMY_WF_URL_API_TOKEN'
@@ -66,7 +66,8 @@ proxy_port: "{{ telegraf_port }}"
 ##/etc/telegraf/telegraf.d/inputs.influxdb.conf (as the key value is: inputs.influxdb)
 ##You can create any file name under telegraf.d folder by setting individual key values acc.
 #
-##Example: As an example, uncomment the following stanza. This will create 2 files
+##Example: As an example, uncomment/add similar stanzas as shown below. 
+##The following will create 2 files if both stanzas are uncommented.
 #telegraf_inputs:
 #  inputs.influxdb:
 #    urls: '["http://localhost:{{ proxy_port }}/file_{{ proxy_port }}.html"]'
@@ -74,7 +75,6 @@ proxy_port: "{{ telegraf_port }}"
 #  inputs.theNextGenMetrics:
 #    urls: 'https://mon.wavefront.com'
 #    name_override: '"extra_inputs_influxdb"'
-
 
 
 #statsd variables. This feature will be added soon.

@@ -88,16 +88,23 @@
    - collector
    - configure
 
-- name: Check if conf file exists
-  file: path="{{ telegraf_additional_config_dir }}/{{ item }}.conf"
-  register: file_{{ item }}.conf_exists
-  with_items: "{{ telegraf_inputs.keys() | default('undefined')  }}"
-  when: telegraf_inputs is defined and telegraf_inputs is iterable
+- name: Find Telegraf config files
+  shell: 'find /etc/telegraf -type f -name "*.conf"|sort'
+  register: telegraf_config_files
+  ignore_errors: yes
+  tags:
+   - install
+   - redhat
+   - debian
+   - collector
+   - configure
 
-- name: Warn if conf file exists but if its setting were turned off.  
-  
-  with_items: "{{ telegraf_inputs.keys() | default('undefined')  }}"
-  when: telegraf_inputs is defined and telegraf_inputs is iterable
-  
-  
-
+- name: User MUST validate the existence and the behavior of these config files
+  debug: msg="{{ telegraf_config_files.stdout_lines }}"
+  ignore_errors: yes
+  tags:
+   - install
+   - redhat
+   - debian
+   - collector
+   - configure
