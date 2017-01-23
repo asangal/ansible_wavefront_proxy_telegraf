@@ -3,7 +3,6 @@ Wavefront Ansible Role
 
 Ansible Role to deploy the Wavefront Proxy agent or Collector (Telegraf) agent.
 
-
 Platforms
 ---------
 
@@ -24,6 +23,8 @@ wavefront_install_collector=true (default: false)                # Optional.
 proxy_address=valid.proxy.hostname (default: a WaveFront Proxy)  # Required, if collector(true)
 proxy_port=2878_is_a_valid_port (default: 2878)                  # Required, if collector(true)
 wavefront_create_cred_file=true (default: false)                 # Optional.
+telegraf_tags							 # Optional. Check <roles>/defaults/main.yml for more info.
+telegraf_inputs							 # Optional. Check <roles>/defaults/main.yml for more info.
 ```
 
 Role Tags
